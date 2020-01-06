@@ -53,32 +53,39 @@ NS_ASSUME_NONNULL_END
     //扫码区域Y轴最小坐标
     CGFloat YMinRetangle = CGRectGetMinY(scanRect);
     //设备启动状态提示
-    if (!_activityView) {
-        self.activityView = [[UIActivityIndicatorView alloc]init];
-        [_activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-      
-        self.labelReadying = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, scanRect.size.width, 30)];
-        _labelReadying.backgroundColor = [UIColor clearColor];
-        _labelReadying.textColor  = [UIColor whiteColor];
-        _labelReadying.font = [UIFont systemFontOfSize:18.];
-        _labelReadying.text = text;
-        [_labelReadying sizeToFit];
-        CGRect frame = _labelReadying.frame;
-        CGPoint centerPt = CGPointMake(self.frame.size.width/2 + 20, YMinRetangle + scanRect.size.height/2);
-        _labelReadying.bounds = CGRectMake(0, 0, frame.size.width,30);
-        _labelReadying.center = centerPt;
-        
-        _activityView.bounds = CGRectMake(0, 0, 30, 30);
-        if (text)
-            _activityView.center = CGPointMake(centerPt.x - frame.size.width/2 - 24 , _labelReadying.center.y);
-        else
-            _activityView.center = CGPointMake(self.frame.size.width/2 , _labelReadying.center.y);
-        
-        [self addSubview:_activityView];
-        [self addSubview:_labelReadying];
-        [_activityView startAnimating];
-    }
-
+//    if (!_activityView) {
+//        self.activityView = [[UIActivityIndicatorView alloc]init];
+//        [_activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//
+//        self.labelReadying = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, scanRect.size.width, 30)];
+//        _labelReadying.backgroundColor = [UIColor clearColor];
+//        _labelReadying.textColor  = [UIColor whiteColor];
+//        _labelReadying.font = [UIFont systemFontOfSize:18.];
+//        _labelReadying.text = text;
+//        [_labelReadying sizeToFit];
+//        CGRect frame = _labelReadying.frame;
+//        CGPoint centerPt = CGPointMake(self.frame.size.width/2 + 20, YMinRetangle + scanRect.size.height/2);
+//        _labelReadying.bounds = CGRectMake(0, 0, frame.size.width,30);
+//        _labelReadying.center = centerPt;
+//
+//        _activityView.bounds = CGRectMake(0, 0, 30, 30);
+//        if (text)
+//            _activityView.center = CGPointMake(centerPt.x - frame.size.width/2 - 24 , _labelReadying.center.y);
+//        else
+//            _activityView.center = CGPointMake(self.frame.size.width/2 , _labelReadying.center.y);
+//
+//        [self addSubview:_activityView];
+//        [self addSubview:_labelReadying];
+//        [_activityView startAnimating];
+//    }
+    CGRect messageLabelRect = CGRectMake(10, self.frame.size.height/2 + scanRect.size.height/2 - self.viewStyle.verticalOffset, self.frame.size.width - 20, 40);
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:messageLabelRect];
+    messageLabel.text = @"将二维码放入框内，即可自动扫描";
+    messageLabel.textColor = [UIColor colorWithRed:238.0/255 green:240.0/255 blue:245.0/255 alpha:1];
+    messageLabel.font = [UIFont systemFontOfSize:13.0];
+    messageLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:messageLabel];
+    
 }
 
 - (void)layoutSubviews {
