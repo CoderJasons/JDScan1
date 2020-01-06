@@ -24,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JDScanViewStyle : NSObject
 
-
+@property (nonatomic, strong) NSString *messageText;
+@property (nonatomic, strong) UIColor *messageTextColor;
+@property (nonatomic, strong) UIFont *messageTextFont;
 #pragma mark -中心位置矩形框
 /**
  支持自动缩放

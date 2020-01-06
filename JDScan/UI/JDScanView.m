@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_END
 - (void)startDeviceReadyingWithText:(NSString*)text {
     CGRect scanRect = self.scanRect;
     //扫码区域Y轴最小坐标
-    CGFloat YMinRetangle = CGRectGetMinY(scanRect);
+//    CGFloat YMinRetangle = CGRectGetMinY(scanRect);
     //设备启动状态提示
 //    if (!_activityView) {
 //        self.activityView = [[UIActivityIndicatorView alloc]init];
@@ -80,9 +80,15 @@ NS_ASSUME_NONNULL_END
 //    }
     CGRect messageLabelRect = CGRectMake(10, self.frame.size.height/2 + scanRect.size.height/2 - self.viewStyle.verticalOffset, self.frame.size.width - 20, 40);
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:messageLabelRect];
-    messageLabel.text = @"将二维码放入框内，即可自动扫描";
+    messageLabel.text = self.viewStyle.messageText;
     messageLabel.textColor = [UIColor colorWithRed:238.0/255 green:240.0/255 blue:245.0/255 alpha:1];
-    messageLabel.font = [UIFont systemFontOfSize:13.0];
+    messageLabel.font = [UIFont systemFontOfSize:13];
+    if (self.viewStyle.messageTextColor != nil ) {
+        messageLabel.textColor = self.viewStyle.messageTextColor;
+    }
+    if (self.viewStyle.messageTextFont != nil) {
+        messageLabel.font = self.viewStyle.messageTextFont;
+    }
     messageLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:messageLabel];
     
