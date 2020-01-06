@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *messageTextColor;
 @property (nonatomic, strong) UIFont *messageTextFont;
 #pragma mark -中心位置矩形框
+
+@property (nonatomic, assign) BOOL zoomGesture;
+
+
 /**
  支持自动缩放
  */
