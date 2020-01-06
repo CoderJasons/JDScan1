@@ -119,7 +119,7 @@
         self.zxing.preImageBlock = ^(UIImage *preImage) {
             weakSelf.imageView.image = preImage;
         };
-        if (self.style.zoomGesture == true) {
+        if (self.style.zoomGesture == YES) {
             [_zxing zoomForView: self.videoView];
         }
         //计算扫描区域
