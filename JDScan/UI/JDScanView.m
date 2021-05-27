@@ -151,35 +151,37 @@ NS_ASSUME_NONNULL_END
     CGFloat XRetangleRight = self.frame.size.width - XRetangleLeft;
     CGSize sizeRetangle = scanRect.size;
     
-    NSLog(@"扫码区域:%@",NSStringFromCGRect(scanRect));
+//    NSLog(@"扫码区域:%@",NSStringFromCGRect(scanRect));
     CGContextRef context = UIGraphicsGetCurrentContext();
     //非扫码区域半透明
     {
-        //设置非识别区域颜色
-        const CGFloat *components = CGColorGetComponents(_viewStyle.backgroundColor.CGColor);
-        CGFloat red_notRecoginitonArea = components[0];
-        CGFloat green_notRecoginitonArea = components[1];
-        CGFloat blue_notRecoginitonArea = components[2];
-        CGFloat alpa_notRecoginitonArea = components[3];
-        CGContextSetRGBFillColor(context, red_notRecoginitonArea, green_notRecoginitonArea,
-                                 blue_notRecoginitonArea, alpa_notRecoginitonArea);
-        //扫码区域上面填充
-        CGRect rect = CGRectMake(0, 0, self.frame.size.width, YMinRetangle);
-        CGContextFillRect(context, rect);
-        
-        //扫码区域左边填充
-        rect = CGRectMake(0, YMinRetangle, XRetangleLeft,sizeRetangle.height);
-        CGContextFillRect(context, rect);
-        
-        //扫码区域右边填充
-        rect = CGRectMake(XRetangleRight, YMinRetangle, XRetangleLeft,sizeRetangle.height);
-        CGContextFillRect(context, rect);
-        
-        //扫码区域下面填充
-        rect = CGRectMake(0, YMaxRetangle, self.frame.size.width,self.frame.size.height - YMaxRetangle);
-        CGContextFillRect(context, rect);
-        //执行绘画
-        CGContextStrokePath(context);
+        if (CGColorEqualToColor(_viewStyle.backgroundColor.CGColor, [UIColor clearColor].CGColor) == NO) {
+            //设置非识别区域颜色
+            const CGFloat *components = CGColorGetComponents(_viewStyle.backgroundColor.CGColor);
+            CGFloat red_notRecoginitonArea = components[0];
+            CGFloat green_notRecoginitonArea = components[1];
+            CGFloat blue_notRecoginitonArea = components[2];
+            CGFloat alpa_notRecoginitonArea = components[3];
+            CGContextSetRGBFillColor(context, red_notRecoginitonArea, green_notRecoginitonArea,
+                                     blue_notRecoginitonArea, alpa_notRecoginitonArea);
+            //扫码区域上面填充
+            CGRect rect = CGRectMake(0, 0, self.frame.size.width, YMinRetangle);
+            CGContextFillRect(context, rect);
+            
+            //扫码区域左边填充
+            rect = CGRectMake(0, YMinRetangle, XRetangleLeft,sizeRetangle.height);
+            CGContextFillRect(context, rect);
+            
+            //扫码区域右边填充
+            rect = CGRectMake(XRetangleRight, YMinRetangle, XRetangleLeft,sizeRetangle.height);
+            CGContextFillRect(context, rect);
+            
+            //扫码区域下面填充
+            rect = CGRectMake(0, YMaxRetangle, self.frame.size.width,self.frame.size.height - YMaxRetangle);
+            CGContextFillRect(context, rect);
+            //执行绘画
+            CGContextStrokePath(context);
+        }
     }
     
     //中间画矩形(正方形)
